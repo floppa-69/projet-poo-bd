@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.5" orientation="VERTICAL" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmacie.controller.ReportsController">
+    <items>
+        <!-- Sales Report -->
+        <AnchorPane>
+            <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Label text="Rapport des Ventes" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                    <Label fx:id="totalSalesLabel" text="Total Ventes: 0.000 DT" textFill="GREEN">
+                         <font><Font name="System Bold" size="14.0" /></font>
+                    </Label>
+                    <Button text="Actualiser" onAction="#refresh" />
+                </HBox>
+                <TableView fx:id="salesTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="saleIdColumn" text="ID" />
+                        <TableColumn fx:id="saleDateColumn" text="Date" prefWidth="150" />
+                        <TableColumn fx:id="saleClientColumn" text="Client" prefWidth="120"/>
+                        <TableColumn fx:id="saleUserColumn" text="Vendeur" prefWidth="100"/>
+                        <TableColumn fx:id="saleAmountColumn" text="Montant" prefWidth="100"/>
+                    </columns>
+                </TableView>
+            </VBox>
+        </AnchorPane>
+        
+        <!-- Stock Alerts -->
+        <AnchorPane>
+            <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+                <Label text="Alerte Stock Faible" style="-fx-font-weight: bold; -fx-font-size: 16px;" textFill="RED"/>
+                <TableView fx:id="lowStockTable" VBox.vgrow="ALWAYS">
+                     <columns>
+                        <TableColumn fx:id="productNameColumn" text="Produit" prefWidth="150"/>
+                        <TableColumn fx:id="currentStockColumn" text="Stock Actuel" prefWidth="100"/>
+                        <TableColumn fx:id="minStockColumn" text="Seuil Min" prefWidth="100"/>
+                        <TableColumn fx:id="supplierColumn" text="Fournisseur" prefWidth="120"/>
+                     </columns>
+                </TableView>
+            </VBox>
+        </AnchorPane>
+    </items>
+</SplitPane>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmacie.controller.DashboardController">
+    <top>
+        <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-background-color: #eee;">
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+            <Label fx:id="userLabel" style="-fx-font-weight: bold;"/>
+            <Button text="Déconnexion" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+    <center>
+        <TabPane tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab text="Ventes">
+                    <content>
+                        <fx:include source="sales.fxml"/>
+                    </content>
+                </Tab>
+                <Tab text="Produits">
+                    <content>
+                        <fx:include source="products.fxml"/>
+                    </content>
+                </Tab>
+                <Tab text="Clients">
+                    <content>
+                        <fx:include source="clients.fxml"/>
+                    </content>
+                </Tab>
+                <Tab text="Fournisseurs">
+                    <content>
+                        <fx:include source="suppliers.fxml"/>
+                    </content>
+                </Tab>
+                <Tab text="Commandes Stock">
+                    <content>
+                        <fx:include source="orders.fxml"/>
+                    </content>
+                </Tab>
+                <Tab text="Rapports">
+                    <content>
+                        <fx:include source="reports.fxml"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>

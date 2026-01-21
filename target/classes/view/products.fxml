@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<SplitPane dividerPositions="0.3" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmacie.controller.ProductController">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <VBox layoutX="14.0" layoutY="14.0" prefHeight="570.0" prefWidth="210.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label text="Gestion Produits" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                  
+                  <Label text="Nom" />
+                  <TextField fx:id="nameField" />
+                  
+                  <Label text="Description" />
+                  <TextArea fx:id="descriptionField" prefHeight="60.0" />
+                  
+                  <Label text="Prix" />
+                  <TextField fx:id="priceField" />
+                  
+                  <Label text="Quantité Stock" />
+                  <TextField fx:id="stockField" />
+                  
+                  <Label text="Seuil Min" />
+                  <TextField fx:id="minStockField" />
+                  
+                  <Label text="ID Fournisseur" />
+                  <TextField fx:id="supplierIdField" />
+
+                  <HBox spacing="10">
+                      <Button mnemonicParsing="false" onAction="#handleSave" text="Enregistrer" />
+                      <Button mnemonicParsing="false" onAction="#handleClear" text="Vider" />
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#handleDelete" style="-fx-background-color: #ffcccc;" text="Supprimer Sélection" />
+                  
+                  <Label fx:id="statusLabel" wrapText="true" textFill="BLUE" />
+               </children>
+            </VBox>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <children>
+            <TableView fx:id="productTable" layoutX="14.0" layoutY="14.0" prefHeight="570.0" prefWidth="530.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+              <columns>
+                <TableColumn fx:id="idColumn" prefWidth="40.0" text="ID" />
+                <TableColumn fx:id="nameColumn" prefWidth="120.0" text="Nom" />
+                  <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Prix" />
+                  <TableColumn fx:id="stockColumn" prefWidth="75.0" text="Stock" />
+                  <TableColumn fx:id="supplierColumn" prefWidth="100.0" text="Fournisseur" />
+              </columns>
+            </TableView>
+         </children></AnchorPane>
+  </items>
+</SplitPane>

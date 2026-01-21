@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.3" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmacie.controller.ClientController">
+    <items>
+        <AnchorPane>
+            <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+                <Label text="Gestion Clients" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                <Label text="Nom" /> <TextField fx:id="nameField" />
+                <Label text="Téléphone" /> <TextField fx:id="phoneField" />
+                <Label text="Email" /> <TextField fx:id="emailField" />
+                <Button text="Enregistrer" onAction="#handleSave" />
+                <Label fx:id="statusLabel" textFill="BLUE" />
+            </VBox>
+        </AnchorPane>
+        <AnchorPane>
+            <TableView fx:id="clientTable" AnchorPane.topAnchor="10" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+                <columns>
+                    <TableColumn fx:id="idColumn" text="ID" />
+                    <TableColumn fx:id="nameColumn" text="Nom" />
+                    <TableColumn fx:id="phoneColumn" text="Téléphone" />
+                    <TableColumn fx:id="emailColumn" text="Email" />
+                </columns>
+            </TableView>
+        </AnchorPane>
+    </items>
+</SplitPane>

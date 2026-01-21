@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmacie.controller.LoginController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+   <Label text="Système de Gestion de Pharmacie">
+      <font>
+         <Font name="System Bold" size="24.0" />
+      </font>
+   </Label>
+   <Label text="Connexion" textFill="#5e5e5e">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Label>
+
+    <TextField fx:id="usernameField" maxWidth="300" promptText="Nom d'utilisateur" />
+    <PasswordField fx:id="passwordField" maxWidth="300" promptText="Mot de passe" />
+   <Label fx:id="errorLabel" textFill="RED" />
+    <Button onAction="#handleLogin" text="Se connecter" defaultButton="true" maxWidth="100"/>
+</VBox>
