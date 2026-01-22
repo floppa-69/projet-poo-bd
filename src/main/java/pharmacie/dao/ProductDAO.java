@@ -10,7 +10,7 @@ import java.util.List;
 public class ProductDAO {
 
     public void save(Product product) throws SQLException {
-        String sql = "INSERT INTO products (name, description, price, stock_quantity, min_stock_level, supplier_id) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO products (name, description, price, stock_quantity, min_stock_level) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -19,11 +19,6 @@ public class ProductDAO {
             stmt.setDouble(3, product.getPrice());
             stmt.setInt(4, product.getStockQuantity());
             stmt.setInt(5, product.getMinStockLevel());
-            if (product.getSupplierId() > 0) {
-                stmt.setInt(6, product.getSupplierId());
-            } else {
-                stmt.setNull(6, Types.INTEGER);
-            }
 
             stmt.executeUpdate();
 
@@ -36,7 +31,7 @@ public class ProductDAO {
     }
 
     public void update(Product product) throws SQLException {
-        String sql = "UPDATE products SET name = ?, description = ?, price = ?, stock_quantity = ?, min_stock_level = ?, supplier_id = ? WHERE id = ?";
+        String sql = "UPDATE products SET name = ?, description = ?, price = ?, stock_quantity = ?, min_stock_level = ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -45,12 +40,7 @@ public class ProductDAO {
             stmt.setDouble(3, product.getPrice());
             stmt.setInt(4, product.getStockQuantity());
             stmt.setInt(5, product.getMinStockLevel());
-            if (product.getSupplierId() > 0) {
-                stmt.setInt(6, product.getSupplierId());
-            } else {
-                stmt.setNull(6, Types.INTEGER);
-            }
-            stmt.setInt(7, product.getId());
+            stmt.setInt(6, product.getId());
             stmt.executeUpdate();
         }
     }
@@ -66,7 +56,7 @@ public class ProductDAO {
     }
 
     public Product findById(int id) throws SQLException {
-        String sql = "SELECT p.*, s.name as supplier_name FROM products p LEFT JOIN suppliers s ON p.supplier_id = s.id WHERE p.id = ?";
+        String sql = "SELECT * FROM products WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -82,7 +72,7 @@ public class ProductDAO {
 
     public List<Product> findAll() throws SQLException {
         List<Product> products = new ArrayList<>();
-        String sql = "SELECT p.*, s.name as supplier_name FROM products p LEFT JOIN suppliers s ON p.supplier_id = s.id";
+        String sql = "SELECT * FROM products";
         try (Connection conn = DBConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
@@ -102,8 +92,6 @@ public class ProductDAO {
         product.setPrice(rs.getDouble("price"));
         product.setStockQuantity(rs.getInt("stock_quantity"));
         product.setMinStockLevel(rs.getInt("min_stock_level"));
-        product.setSupplierId(rs.getInt("supplier_id"));
-        product.setSupplierName(rs.getString("supplier_name"));
         return product;
     }
 }

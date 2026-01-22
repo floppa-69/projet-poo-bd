@@ -29,6 +29,7 @@
                 <ComboBox fx:id="clientComboBox" prefWidth="200" promptText="Sélectionner Client" />
                 <Label text="Produit:" />
                 <ComboBox fx:id="productComboBox" prefWidth="200" promptText="Sélectionner Produit" />
+
                 <Label text="Qté:" />
                 <TextField fx:id="quantityField" prefWidth="60" text="1" />
                 <Button onAction="#handleAddToCart" text="Ajouter au Panier" />

@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.scene.control.cell.PropertyValueFactory;
 import pharmacie.model.Product;
 import pharmacie.model.Supplier;
@@ -29,6 +30,14 @@ public class OrderController {
     @FXML
     private TableColumn<SupplierOrderItem, Integer> newItemQtyColumn;
     @FXML
+    private CheckBox newProductCheckBox;
+    @FXML
+    private VBox newProductBox;
+    @FXML
+    private TextField newProductNameField;
+    @FXML
+    private TextField newProductPriceField;
+    @FXML
     private Label createStatusLabel;
 
     @FXML
@@ -52,10 +61,12 @@ public class OrderController {
 
     @FXML
     public void initialize() {
-        // Init Create Section
-        supplierComboBox.setItems(FXCollections.observableArrayList(supplierService.getAllSuppliers()));
-        productComboBox.setItems(FXCollections.observableArrayList(productService.getAllProducts()));
+        // Toggle visibility for new product fields
+        newProductBox.visibleProperty().bind(newProductCheckBox.selectedProperty());
+        newProductBox.managedProperty().bind(newProductCheckBox.selectedProperty());
+        productComboBox.disableProperty().bind(newProductCheckBox.selectedProperty());
 
+        // Init Create Section
         newItemNameColumn
                 .setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProductName()));
         newItemQtyColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -67,6 +78,12 @@ public class OrderController {
         orderSupplierColumn.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
         orderStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
 
+        refresh();
+    }
+
+    public void refresh() {
+        supplierComboBox.setItems(FXCollections.observableArrayList(supplierService.getAllSuppliers()));
+        productComboBox.setItems(FXCollections.observableArrayList(productService.getAllProducts()));
         loadOrders();
     }
 
@@ -76,11 +93,28 @@ public class OrderController {
 
     @FXML
     private void handleAddItem() {
-        Product p = productComboBox.getValue();
-        if (p == null)
-            return;
-
         try {
+            Product p;
+            if (newProductCheckBox.isSelected()) {
+                // Create new product immediately
+                String name = newProductNameField.getText();
+                double price = Double.parseDouble(newProductPriceField.getText());
+                if (name == null || name.trim().isEmpty())
+                    throw new Exception("Nom de produit requis");
+
+                p = new Product(name, "Créé via commande fournisseur", price, 0, 5);
+                productService.addProduct(p);
+
+                newProductNameField.clear();
+                newProductPriceField.clear();
+                newProductCheckBox.setSelected(false);
+                productComboBox.setItems(FXCollections.observableArrayList(productService.getAllProducts()));
+            } else {
+                p = productComboBox.getValue();
+                if (p == null)
+                    return;
+            }
+
             int qty = Integer.parseInt(qtyField.getText());
             if (qty <= 0)
                 throw new NumberFormatException();
@@ -90,8 +124,11 @@ public class OrderController {
             newItems.add(item);
 
             qtyField.clear();
+            createStatusLabel.setText("");
         } catch (NumberFormatException e) {
-            createStatusLabel.setText("Quantité invalide");
+            createStatusLabel.setText("Quantité ou Prix invalide");
+        } catch (Exception e) {
+            createStatusLabel.setText("Erreur: " + e.getMessage());
         }
     }
 

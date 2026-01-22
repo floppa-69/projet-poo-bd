@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane dividerPositions="0.3" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmacie.controller.UserController">
+  <items>
+    <AnchorPane>
+         <children>
+            <VBox layoutX="14.0" layoutY="14.0" prefHeight="570.0" prefWidth="210.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <children>
+                  <Label text="Nouvel Utilisateur" style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                  
+                  <Label text="Nom d'utilisateur" />
+                  <TextField fx:id="usernameField" />
+                  
+                  <Label text="Mot de passe" />
+                  <PasswordField fx:id="passwordField" />
+                  
+                  <Label text="Rôle" />
+                  <ComboBox fx:id="roleComboBox" prefWidth="200.0" />
+
+                  <Button mnemonicParsing="false" onAction="#handleSave" text="Enregistrer" prefWidth="200"/>
+                  <Label fx:id="statusLabel" wrapText="true" textFill="BLUE" />
+               </children>
+            </VBox>
+         </children>
+    </AnchorPane>
+    <AnchorPane>
+         <children>
+            <TableView fx:id="userTable" layoutX="14.0" layoutY="14.0" prefHeight="570.0" prefWidth="530.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+              <columns>
+                <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID" />
+                <TableColumn fx:id="usernameColumn" prefWidth="200.0" text="Nom d'utilisateur" />
+                <TableColumn fx:id="roleColumn" prefWidth="150.0" text="Rôle" />
+              </columns>
+            </TableView>
+            <HBox layoutX="14.0" layoutY="550.0" spacing="10" AnchorPane.bottomAnchor="15.0">
+                <Button onAction="#handleDelete" text="Supprimer" style="-fx-background-color: #ffcccc;"/>
+                <Button onAction="#handlePromote" text="Changer Rôle (Admin/Employee)" />
+            </HBox>
+         </children>
+    </AnchorPane>
+  </items>
+</SplitPane>

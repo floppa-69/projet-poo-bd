@@ -1,0 +1,200 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, shadows, calc}
+
+% Configuration des marges
+\geometry{hmargin=1cm,vmargin=1cm}
+
+% Couleurs UML
+\definecolor{umlClass}{RGB}{255, 250, 240}
+\definecolor{umlBorder}{RGB}{0, 0, 0}
+\definecolor{umlHeader}{RGB}{230, 230, 230}
+
+\title{\textbf{\Huge Diagramme de Classes UML Détaillé}}
+\author{Généré par Antigravity}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{center}
+\begin{tikzpicture}[
+    scale=0.85, transform shape,
+    class/.style={
+        rectangle, 
+        draw=umlBorder, 
+        thick, 
+        fill=umlClass, 
+        text width=4.5cm, 
+        align=left, 
+        font=\small, 
+        drop shadow
+    },
+    header/.style={
+        draw=umlBorder, 
+        thick, 
+        fill=umlHeader, 
+        text width=4.5cm, 
+        align=center, 
+        font=\bfseries\small, 
+        minimum height=0.6cm
+    },
+    arrow/.style={thick, -{Latex[length=2mm]}},
+    aggregation/.style={thick, {Diamond[open]}-},
+    composition/.style={thick, {Diamond[fill=black]}-},
+    dashed_arrow/.style={thick, dashed, -{Latex[length=2mm]}}
+]
+
+% ================= NODES =================
+
+% --- Row 1: Users & Roles ---
+\node[header] (UserHeader) at (-4, 0) {User};
+\node[class, below=0pt of UserHeader] (User) {
+    - id : int \\
+    - username : String \\
+    - password : String \\
+    - role : Role \\
+    \hdashrule \\
+    + getId() : int \\
+    + getUsername() : String \\
+    + getRole() : Role \\
+    + setRole(Role) : void
+};
+
+\node[header] (RoleHeader) at (-9, 0) {<<Enumeration>>\\Role};
+\node[class, below=0pt of RoleHeader] (Role) {
+    ADMIN \\
+    EMPLOYEE
+};
+
+% --- Row 2: Clients & Sales ---
+\node[header] (ClientHeader) at (-4, -6) {Client};
+\node[class, below=0pt of ClientHeader] (Client) {
+    - id : int \\
+    - name : String \\
+    - phone : String \\
+    - email : String \\
+    - loyaltyPoints : int \\
+    \hdashrule \\
+    + addPoints(int) : void \\
+    + getLoyaltyPoints() : int
+};
+
+\node[header] (SaleHeader) at (2, -6) {Sale};
+\node[class, below=0pt of SaleHeader] (Sale) {
+    - id : int \\
+    - saleDate : Timestamp \\
+    - totalAmount : double \\
+    - clientId : int \\
+    - userId : int \\
+    - items : List<SaleItem> \\
+    \hdashrule \\
+    + getTotal() : double \\
+    + addItem(SaleItem) : void \\
+    + getItems() : List<SaleItem>
+};
+
+\node[header] (SaleItemHeader) at (8, -6) {SaleItem};
+\node[class, below=0pt of SaleItemHeader] (SaleItem) {
+    - id : int \\
+    - saleId : int \\
+    - productId : int \\
+    - quantity : int \\
+    - unitPrice : double \\
+    \hdashrule \\
+    + getTotalPrice() : double
+};
+
+% --- Row 3: Products & Suppliers ---
+\node[header] (ProductHeader) at (2, -12) {Product};
+\node[class, below=0pt of ProductHeader] (Product) {
+    - id : int \\
+    - name : String \\
+    - description : String \\
+    - price : double \\
+    - stockQuantity : int \\
+    - minStockLevel : int \\
+    - supplierId : int \\
+    \hdashrule \\
+    + getPrice() : double \\
+    + getStockQuantity() : int \\
+    + setStockQuantity(int)
+};
+
+\node[header] (SupplierHeader) at (-4, -12) {Supplier};
+\node[class, below=0pt of SupplierHeader] (Supplier) {
+    - id : int \\
+    - name : String \\
+    - contact : String \\
+    - email : String \\
+    - address : String \\
+    \hdashrule \\
+    + getName() : String \\
+    + getContact() : String
+};
+
+% --- Row 4: Supplier Orders ---
+\node[header] (OrderHeader) at (-4, -18) {SupplierOrder};
+\node[class, below=0pt of OrderHeader] (Order) {
+    - id : int \\
+    - orderDate : Timestamp \\
+    - status : String \\
+    - supplierId : int \\
+    - items : List<OrderItem> \\
+    \hdashrule \\
+    + addItem(OrderItem) \\
+    + getStatus() : String
+};
+
+\node[header] (OrderItemHeader) at (2, -18) {SupplierOrderItem};
+\node[class, below=0pt of OrderItemHeader] (OrderItem) {
+    - id : int \\
+    - orderId : int \\
+    - productId : int \\
+    - quantity : int \\
+    \hdashrule \\
+    + getQuantity() : int
+};
+
+% ================= RELATIONSHIPS =================
+
+% User -> Role (Association)
+\draw[arrow] (User) -- (Role);
+
+% Sale -> User (Association)
+\draw[arrow] (Sale) -- (User) node[midway, right, font=\footnotesize] {effectué par};
+
+% Sale -> Client (Association)
+\draw[arrow] (Sale) -- (Client) node[midway, above, font=\footnotesize] {concerne};
+
+% Sale Composition (Sale *-- SaleItem)
+\draw[composition] (Sale) -- (SaleItem) node[midway, above, font=\footnotesize] {contient};
+
+% SaleItem -> Product (Dependency/Reference)
+\draw[dashed_arrow] (SaleItem) to[out=-90, in=45] (Product);
+
+% Product -> Supplier (Association)
+\draw[arrow] (Product) -- (Supplier) node[midway, above, font=\footnotesize] {fourni par};
+
+% SupplierOrder -> Supplier (Association)
+\draw[arrow] (Order) -- (Supplier) node[midway, right, font=\footnotesize] {vers};
+
+% SupplierOrder Composition
+\draw[composition] (Order) -- (OrderItem) node[midway, above, font=\footnotesize] {contient};
+
+% SupplierOrderItem -> Product (Dependency)
+\draw[dashed_arrow] (OrderItem) -- (Product);
+
+\end{tikzpicture}
+\end{center}
+
+\end{document}

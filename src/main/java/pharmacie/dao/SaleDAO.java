@@ -84,8 +84,10 @@ public class SaleDAO {
                 itemStmt.close();
             if (updateStockStmt != null)
                 updateStockStmt.close();
-            if (conn != null)
+            if (conn != null) {
                 conn.setAutoCommit(true);
+                conn.close();
+            }
         }
     }
 

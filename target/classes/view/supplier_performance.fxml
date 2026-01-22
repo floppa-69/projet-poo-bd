@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pharmacie.controller.SupplierPerformanceController">
+    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+    <HBox spacing="20" alignment="CENTER_LEFT">
+        <Label text="Performance Fournisseurs" style="-fx-font-weight: bold; -fx-font-size: 18px;" />
+        <Button text="Actualiser" onAction="#refresh" />
+    </HBox>
+    <TableView fx:id="performanceTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="supplierNameColumn" text="Fournisseur" prefWidth="300" />
+            <TableColumn fx:id="totalSpentColumn" text="Total Dépensé (DT)" prefWidth="200" />
+        </columns>
+    </TableView>
+</VBox>

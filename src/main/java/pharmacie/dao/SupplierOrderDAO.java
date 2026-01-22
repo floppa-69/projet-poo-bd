@@ -2,6 +2,7 @@ package pharmacie.dao;
 
 import pharmacie.model.SupplierOrder;
 import pharmacie.model.SupplierOrderItem;
+import pharmacie.model.SupplierPerformance;
 import pharmacie.util.DBConnection;
 
 import java.sql.*;
@@ -60,8 +61,10 @@ public class SupplierOrderDAO {
                 orderStmt.close();
             if (itemStmt != null)
                 itemStmt.close();
-            if (conn != null)
+            if (conn != null) {
                 conn.setAutoCommit(true);
+                conn.close();
+            }
         }
     }
 
@@ -130,8 +133,10 @@ public class SupplierOrderDAO {
                 updateStockStmt.close();
             if (updateStatusStmt != null)
                 updateStatusStmt.close();
-            if (conn != null)
+            if (conn != null) {
                 conn.setAutoCommit(true);
+                conn.close();
+            }
         }
     }
 
@@ -157,5 +162,29 @@ public class SupplierOrderDAO {
             }
         }
         return orders;
+    }
+
+    public List<SupplierPerformance> getSupplierPerformance() throws SQLException {
+        List<SupplierPerformance> performanceList = new ArrayList<>();
+        String sql = "SELECT s.name, SUM(p.price * soi.quantity) as total_spent " +
+                "FROM suppliers s " +
+                "JOIN supplier_orders o ON s.id = o.supplier_id " +
+                "JOIN supplier_order_items soi ON o.id = soi.order_id " +
+                "JOIN products p ON soi.product_id = p.id " +
+                "WHERE o.status = 'RECEIVED' " +
+                "GROUP BY s.id, s.name " +
+                "ORDER BY total_spent DESC";
+
+        try (Connection conn = DBConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                performanceList.add(new SupplierPerformance(
+                        rs.getString("name"),
+                        rs.getDouble("total_spent")));
+            }
+        }
+        return performanceList;
     }
 }

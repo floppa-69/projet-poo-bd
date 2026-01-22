@@ -34,6 +34,12 @@ public class ProductService {
         productDAO.delete(id);
     }
 
+    public List<Product> getLowStockProducts() {
+        return getAllProducts().stream()
+                .filter(p -> p.getStockQuantity() <= p.getMinStockLevel())
+                .toList();
+    }
+
     private void validateProduct(Product product) throws DonneeInvalideException {
         if (product.getName() == null || product.getName().trim().isEmpty()) {
             throw new DonneeInvalideException("Le nom du produit est obligatoire.");

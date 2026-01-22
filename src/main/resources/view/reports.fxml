@@ -37,7 +37,7 @@
                         <TableColumn fx:id="productNameColumn" text="Produit" prefWidth="150"/>
                         <TableColumn fx:id="currentStockColumn" text="Stock Actuel" prefWidth="100"/>
                         <TableColumn fx:id="minStockColumn" text="Seuil Min" prefWidth="100"/>
-                        <TableColumn fx:id="supplierColumn" text="Fournisseur" prefWidth="120"/>
+
                      </columns>
                 </TableView>
             </VBox>

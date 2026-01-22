@@ -29,10 +29,10 @@ public class SupplierController {
         contactColumn.setCellValueFactory(new PropertyValueFactory<>("contact"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        loadSuppliers();
+        refresh();
     }
 
-    private void loadSuppliers() {
+    public void refresh() {
         supplierTable.setItems(FXCollections.observableArrayList(supplierService.getAllSuppliers()));
     }
 
@@ -46,7 +46,23 @@ public class SupplierController {
             s.setAddress(addressField.getText());
             supplierService.addSupplier(s);
             statusLabel.setText("Fournisseur ajouté !");
-            loadSuppliers();
+            refresh();
+        } catch (Exception e) {
+            statusLabel.setText("Erreur: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleDelete() {
+        Supplier selected = supplierTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            statusLabel.setText("Sélectionnez un fournisseur !");
+            return;
+        }
+        try {
+            supplierService.deleteSupplier(selected.getId());
+            statusLabel.setText("Fournisseur supprimé !");
+            refresh();
         } catch (Exception e) {
             statusLabel.setText("Erreur: " + e.getMessage());
         }

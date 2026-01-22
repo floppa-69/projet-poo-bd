@@ -29,10 +29,10 @@ public class ClientController {
         phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 
-        loadClients();
+        refresh();
     }
 
-    private void loadClients() {
+    public void refresh() {
         clientTable.setItems(FXCollections.observableArrayList(clientService.getAllClients()));
     }
 
@@ -45,7 +45,23 @@ public class ClientController {
             c.setEmail(emailField.getText());
             clientService.addClient(c);
             statusLabel.setText("Client ajouté !");
-            loadClients();
+            refresh();
+        } catch (Exception e) {
+            statusLabel.setText("Erreur: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    private void handleDelete() {
+        Client selected = clientTable.getSelectionModel().getSelectedItem();
+        if (selected == null) {
+            statusLabel.setText("Sélectionnez un client !");
+            return;
+        }
+        try {
+            clientService.deleteClient(selected.getId());
+            statusLabel.setText("Client supprimé !");
+            refresh();
         } catch (Exception e) {
             statusLabel.setText("Erreur: " + e.getMessage());
         }

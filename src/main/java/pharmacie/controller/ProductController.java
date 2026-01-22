@@ -20,8 +20,6 @@ public class ProductController {
     @FXML
     private TextField minStockField;
     @FXML
-    private TextField supplierIdField;
-    @FXML
     private Label statusLabel;
 
     @FXML
@@ -34,8 +32,6 @@ public class ProductController {
     private TableColumn<Product, Double> priceColumn;
     @FXML
     private TableColumn<Product, Integer> stockColumn;
-    @FXML
-    private TableColumn<Product, String> supplierColumn;
 
     private ProductService productService = new ProductService();
 
@@ -45,9 +41,8 @@ public class ProductController {
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         stockColumn.setCellValueFactory(new PropertyValueFactory<>("stockQuantity"));
-        supplierColumn.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
 
-        loadProducts();
+        refresh();
 
         productTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -56,7 +51,7 @@ public class ProductController {
         });
     }
 
-    private void loadProducts() {
+    public void refresh() {
         productTable.setItems(FXCollections.observableArrayList(productService.getAllProducts()));
     }
 
@@ -66,7 +61,6 @@ public class ProductController {
         priceField.setText(String.valueOf(p.getPrice()));
         stockField.setText(String.valueOf(p.getStockQuantity()));
         minStockField.setText(String.valueOf(p.getMinStockLevel()));
-        supplierIdField.setText(String.valueOf(p.getSupplierId()));
     }
 
     @FXML
@@ -86,7 +80,6 @@ public class ProductController {
             p.setPrice(Double.parseDouble(priceField.getText()));
             p.setStockQuantity(Integer.parseInt(stockField.getText()));
             p.setMinStockLevel(Integer.parseInt(minStockField.getText()));
-            p.setSupplierId(Integer.parseInt(supplierIdField.getText()));
 
             if (p.getId() > 0) {
                 productService.updateProduct(p);
@@ -95,7 +88,7 @@ public class ProductController {
                 productService.addProduct(p);
                 statusLabel.setText("Produit ajouté !");
             }
-            loadProducts();
+            refresh();
             handleClear();
         } catch (Exception e) {
             statusLabel.setText("Erreur: " + e.getMessage());
@@ -109,7 +102,7 @@ public class ProductController {
         if (selected != null) {
             try {
                 productService.deleteProduct(selected.getId());
-                loadProducts();
+                refresh();
                 handleClear();
                 statusLabel.setText("Produit supprimé !");
             } catch (Exception e) {
@@ -125,7 +118,6 @@ public class ProductController {
         priceField.clear();
         stockField.clear();
         minStockField.clear();
-        supplierIdField.clear();
         productTable.getSelectionModel().clearSelection();
     }
 }

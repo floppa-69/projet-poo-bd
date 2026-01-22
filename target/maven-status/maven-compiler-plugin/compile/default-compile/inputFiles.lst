@@ -4,6 +4,7 @@
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/app/Main.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/controller/ReportsController.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/service/ProductService.java
+/home/kali/Desktop/ekhrmara/src/main/java/pharmacie/service/UserService.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/service/StockService.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/controller/ProductController.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/exception/DonneeInvalideException.java
@@ -11,6 +12,8 @@
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/model/SaleItem.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/controller/OrderController.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/model/Supplier.java
+/home/kali/Desktop/ekhrmara/src/main/java/pharmacie/controller/SupplierPerformanceController.java
+/home/kali/Desktop/ekhrmara/src/main/java/pharmacie/controller/UserController.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/controller/LoginController.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/model/Client.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/exception/StockInsuffisantException.java
@@ -32,4 +35,5 @@
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/model/Sale.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/dao/UserDAO.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/dao/SupplierOrderDAO.java
+/home/kali/Desktop/ekhrmara/src/main/java/pharmacie/model/SupplierPerformance.java
 /home/kali/Desktop/ekhrmara/src/main/java/pharmacie/service/ClientService.java

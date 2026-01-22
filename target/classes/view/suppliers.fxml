@@ -12,7 +12,10 @@
                 <Label text="Contact" /> <TextField fx:id="contactField" />
                 <Label text="Email" /> <TextField fx:id="emailField" />
                 <Label text="Adresse" /> <TextField fx:id="addressField" />
-                <Button text="Enregistrer" onAction="#handleSave" />
+                <HBox spacing="10">
+                    <Button text="Enregistrer" onAction="#handleSave" prefWidth="100"/>
+                    <Button text="Supprimer" onAction="#handleDelete" prefWidth="100" style="-fx-base: #ffcccc;"/>
+                </HBox>
                 <Label fx:id="statusLabel" textFill="BLUE" />
             </VBox>
         </AnchorPane>

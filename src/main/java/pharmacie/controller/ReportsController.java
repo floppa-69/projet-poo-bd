@@ -39,8 +39,6 @@ public class ReportsController {
     private TableColumn<Product, Integer> currentStockColumn;
     @FXML
     private TableColumn<Product, Integer> minStockColumn;
-    @FXML
-    private TableColumn<Product, String> supplierColumn;
 
     private SaleService saleService = new SaleService();
     private ProductService productService = new ProductService();
@@ -58,13 +56,12 @@ public class ReportsController {
         productNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         currentStockColumn.setCellValueFactory(new PropertyValueFactory<>("stockQuantity"));
         minStockColumn.setCellValueFactory(new PropertyValueFactory<>("minStockLevel"));
-        supplierColumn.setCellValueFactory(new PropertyValueFactory<>("supplierName"));
 
         refresh();
     }
 
     @FXML
-    private void refresh() {
+    public void refresh() {
         // Load Sales
         List<Sale> sales = saleService.getAllSales();
         salesTable.setItems(FXCollections.observableArrayList(sales));

@@ -16,8 +16,13 @@
                 <Separator />
                 
                 <Label text="Ajouter Produit:" />
+                <CheckBox fx:id="newProductCheckBox" text="Nouveau produit ?" />
                 <HBox spacing="5">
-                    <ComboBox fx:id="productComboBox" prefWidth="150" promptText="Produit" />
+                    <ComboBox fx:id="productComboBox" prefWidth="150" promptText="Produit existant" />
+                    <VBox fx:id="newProductBox" spacing="5" visible="false" managed="false">
+                        <TextField fx:id="newProductNameField" promptText="Nom du nouveau produit" />
+                        <TextField fx:id="newProductPriceField" promptText="Prix (ex: 12.500)" />
+                    </VBox>
                     <TextField fx:id="qtyField" prefWidth="60" promptText="Qté" />
                     <Button text="+" onAction="#handleAddItem" />
                 </HBox>

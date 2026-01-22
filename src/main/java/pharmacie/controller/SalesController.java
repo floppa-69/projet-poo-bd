@@ -62,6 +62,12 @@ public class SalesController {
     }
 
     @FXML
+    public void handleRefreshData() {
+        productComboBox.setItems(FXCollections.observableArrayList(productService.getAllProducts()));
+        clientComboBox.setItems(FXCollections.observableArrayList(clientService.getAllClients()));
+    }
+
+    @FXML
     private void handleAddToCart() {
         Product selectedProduct = productComboBox.getValue();
         if (selectedProduct == null) {
@@ -115,11 +121,19 @@ public class SalesController {
         try {
             saleService.registerSale(sale);
             showAlert(Alert.AlertType.INFORMATION, "Vente enregistrée avec succès !");
+
+            // Notification de stock faible
+            java.util.List<pharmacie.model.Product> lowStock = productService.getLowStockProducts();
+            if (!lowStock.isEmpty()) {
+                StringBuilder sb = new StringBuilder("ALERTE STOCK FAIBLE :\n");
+                for (pharmacie.model.Product p : lowStock) {
+                    sb.append("- ").append(p.getName()).append(" (Stock: ").append(p.getStockQuantity()).append(")\n");
+                }
+                showAlert(Alert.AlertType.WARNING, sb.toString());
+            }
+
             handleClear();
-            productComboBox.setItems(FXCollections.observableArrayList(productService.getAllProducts())); // Refresh
-                                                                                                          // stock view
-                                                                                                          // in combo if
-                                                                                                          // needed
+            productComboBox.setItems(FXCollections.observableArrayList(productService.getAllProducts()));
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur lors de la vente: " + e.getMessage());
         }

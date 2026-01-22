@@ -13,40 +13,51 @@
         <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-background-color: #eee;">
             <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
             <Label fx:id="userLabel" style="-fx-font-weight: bold;"/>
+            <Button text="Rafraîchir tout" onAction="#handleGlobalRefresh" style="-fx-background-color: #add8e6;"/>
             <Button text="Déconnexion" onAction="#handleLogout"/>
         </HBox>
     </top>
     <center>
-        <TabPane tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="mainTabPane" tabClosingPolicy="UNAVAILABLE">
             <tabs>
-                <Tab text="Ventes">
+                <Tab fx:id="salesTab" text="Ventes">
                     <content>
-                        <fx:include source="sales.fxml"/>
+                        <fx:include fx:id="sales" source="sales.fxml" />
                     </content>
                 </Tab>
-                <Tab text="Produits">
+                <Tab fx:id="productsTab" text="Produits">
                     <content>
-                        <fx:include source="products.fxml"/>
+                        <fx:include fx:id="products" source="products.fxml"/>
                     </content>
                 </Tab>
-                <Tab text="Clients">
+                <Tab fx:id="clientsTab" text="Clients">
                     <content>
-                        <fx:include source="clients.fxml"/>
+                        <fx:include fx:id="clients" source="clients.fxml"/>
                     </content>
                 </Tab>
-                <Tab text="Fournisseurs">
+                <Tab fx:id="suppliersTab" text="Fournisseurs">
                     <content>
-                        <fx:include source="suppliers.fxml"/>
+                        <fx:include fx:id="suppliers" source="suppliers.fxml"/>
                     </content>
                 </Tab>
-                <Tab text="Commandes Stock">
+                <Tab fx:id="ordersTab" text="Commandes Stock">
                     <content>
-                        <fx:include source="orders.fxml"/>
+                        <fx:include fx:id="orders" source="orders.fxml"/>
                     </content>
                 </Tab>
-                <Tab text="Rapports">
+                <Tab fx:id="reportsTab" text="Rapports">
                     <content>
-                        <fx:include source="reports.fxml"/>
+                        <fx:include fx:id="reports" source="reports.fxml"/>
+                    </content>
+                </Tab>
+                <Tab fx:id="usersTab" text="Utilisateurs">
+                    <content>
+                        <fx:include fx:id="users" source="users.fxml"/>
+                    </content>
+                </Tab>
+                <Tab fx:id="perfTab" text="Performance Fournisseurs">
+                    <content>
+                        <fx:include fx:id="perf" source="supplier_performance.fxml"/>
                     </content>
                 </Tab>
             </tabs>

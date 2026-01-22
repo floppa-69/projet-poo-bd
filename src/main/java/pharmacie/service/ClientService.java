@@ -27,5 +27,9 @@ public class ClientService {
         clientDAO.save(client);
     }
 
+    public void deleteClient(int id) throws SQLException {
+        clientDAO.delete(id);
+    }
+
     // Add other methods as needed
 }

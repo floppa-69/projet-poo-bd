@@ -35,9 +35,6 @@
                   <Label text="Seuil Min" />
                   <TextField fx:id="minStockField" />
                   
-                  <Label text="ID Fournisseur" />
-                  <TextField fx:id="supplierIdField" />
-
                   <HBox spacing="10">
                       <Button mnemonicParsing="false" onAction="#handleSave" text="Enregistrer" />
                       <Button mnemonicParsing="false" onAction="#handleClear" text="Vider" />
@@ -56,7 +53,6 @@
                 <TableColumn fx:id="nameColumn" prefWidth="120.0" text="Nom" />
                   <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Prix" />
                   <TableColumn fx:id="stockColumn" prefWidth="75.0" text="Stock" />
-                  <TableColumn fx:id="supplierColumn" prefWidth="100.0" text="Fournisseur" />
               </columns>
             </TableView>
          </children></AnchorPane>
