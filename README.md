@@ -26,10 +26,4 @@ Fichiers importants
 - `init_db.sh` : script d'initialisation (création d'utilisateur MySQL, import)
 - `rapport_projet.tex` : rapport existant au format LaTeX
 
-Contact
 
-Pour toute question, ouvrir une issue dans le dépôt.
-
-Licence
-
-Ce projet est fourni sans licence explicite.
