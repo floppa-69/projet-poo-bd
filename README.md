@@ -1,47 +1,35 @@
-# Pharmacy Management System
+# Projet POO - Gestion de Pharmacie
 
-A simple JavaFX application for managing a pharmacy's inventory, sales, suppliers, and clients.
+Ce dépôt contient une application Java (Maven) pour la gestion d'une pharmacie : gestion des produits, fournisseurs, clients, ventes et commandes fournisseurs.
 
-## Prerequisites
-- Java 17 or higher
-- Maven
-- MySQL Server 8.0+
+Principales informations
 
-## Database Setup
-1. Create a MySQL database named `pharmacy_db`.
-2. Run the provided SQL script `schema.sql` to initialize tables and users.
-   ```bash
-   mysql -u root -p < schema.sql
-   ```
-   *Note: Detailed user creation script is included in schema.sql. Default admin is 'admin'/'admin'.*
+- Langage : Java
+- Outils : Maven
+- Base de données : MySQL (script d'initialisation : schema.sql, init_db.sh)
 
-## Configuration
-Update the database credentials in `src/main/java/pharmacie/util/DBConnection.java` if your local MySQL configuration differs from:
-- User: `root`
-- Password: `password`
+Installation rapide
 
-## Running the Application
-Use Maven to run the application:
-```bash
-mvn clean javafx:run
-```
+1. Cloner le dépôt :
+   git clone https://github.com/floppa-69/projet-poo-bd.git
+2. Importer le projet dans votre IDE (Eclipse/IntelliJ) en tant que projet Maven.
+3. Initialiser la base de données :
+   - Exécuter `schema.sql` ou `./init_db.sh` (MySQL local)
+4. Compiler et exécuter :
+   mvn package
+   java -jar target/projet-poo-bd.jar
 
-## Features
-- **Authentication**: Role-based login (Admin/Employee).
-- **Products**: CRUD operations, Stock tracking.
-- **Sales**: Cart system, Auto-stock decrease, Transaction history.
-- **Suppliers**: Manage supplier info.
-- **Orders**: Create supplier orders and receive stock.
-- **Clients**: Manage client info.
-- **Reports**: View sales total and low stock alerts.
+Fichiers importants
 
-## Default Credentials
-- **Admin**: `admin` / `admin`
-- **Employee**: `user` / `user`
+- `src/main/java/pharmacie/model/` : classes du modèle (Client, Product, User, Sale, ...)
+- `schema.sql` : script de création de la base de données et données d'exemple
+- `init_db.sh` : script d'initialisation (création d'utilisateur MySQL, import)
+- `rapport_projet.tex` : rapport existant au format LaTeX
 
-## Architecture
-- **View**: JavaFX FXML (`src/main/resources/view`)
-- **Controller**: JavaFX Controllers (`pharmacie.controller`)
-- **Service**: Business Logic (`pharmacie.service`)
-- **DAO**: Data Access (`pharmacie.dao`)
-- **Model**: Entities (`pharmacie.model`)
+Contact
+
+Pour toute question, ouvrir une issue dans le dépôt.
+
+Licence
+
+Ce projet est fourni sans licence explicite.
